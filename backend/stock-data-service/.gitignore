@@ -32,3 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 /env.properties
+/.mvn/
+/mvnw
+/mvnw.cmd
