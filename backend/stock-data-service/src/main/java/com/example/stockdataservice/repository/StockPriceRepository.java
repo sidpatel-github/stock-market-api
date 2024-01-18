@@ -1,9 +1,9 @@
 package com.example.stockdataservice.repository;
 
-import com.example.stockdataservice.entity.StockSymbol;
+import com.example.stockdataservice.entity.StockPrice;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface  StockSymbolRepository extends ReactiveMongoRepository<StockSymbol, String> {
+public interface StockPriceRepository extends ReactiveMongoRepository<StockPrice, String> {
 }
