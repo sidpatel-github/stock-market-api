@@ -10,6 +10,7 @@ import java.time.Instant;
 @TimeSeries(collection="stock_price", timeField = "timestamp", metaField = "symbol")
 @Data
 public class StockPrice {
+
     private String symbol;
 
     @Field(name = "price")
