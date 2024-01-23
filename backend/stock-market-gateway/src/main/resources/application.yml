@@ -2,23 +2,28 @@ spring:
   cloud:
     gateway:
       routes:
+        - id: stock-search-api
+          uri: lb://stock-search-api
+          predicates:
+            - Path=/stock-search/**
+          filters:
+            - AuthenticationFilter
+
         - id: stock-auth-service
           uri: lb://stock-auth-service
           predicates:
             - Path=/auth/**
 
-#        - id: identity-service
-#          uri: lb://IDENTITY-SERVICE
-#          predicates:
-#            - Path=/auth/**
+
 
   application:
     name: stock-market-gateway
   config:
     import: file:env.properties
 
-jwt:
-  secret: ${JWT_SECRET}
+app:
+  jwt:
+    secret: ${JWT_SECRET}
 
 eureka:
   client:
