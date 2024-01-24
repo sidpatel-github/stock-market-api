@@ -5,7 +5,7 @@ spring:
         - id: stock-search-api
           uri: lb://stock-search-api
           predicates:
-            - Path=/stock-search/**
+            - Path=/stock-search/**, /stock-detail/**
           filters:
             - AuthenticationFilter
 
