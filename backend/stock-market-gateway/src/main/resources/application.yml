@@ -9,6 +9,13 @@ spring:
           filters:
             - AuthenticationFilter
 
+        - id: stock-search-api
+          uri: lb://stock-data-service
+          predicates:
+            - Path=/stock-api/**,
+          filters:
+            - AuthenticationFilter
+
         - id: stock-auth-service
           uri: lb://stock-auth-service
           predicates:
