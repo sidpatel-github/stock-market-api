@@ -20,8 +20,13 @@ public class StockQuoteService {
         return webClient.get()
                 .uri("/quote/" + symbol + "/?apikey=" + apiProperties.getKey())
                 .retrieve()
-                .bodyToMono(StockQuote[].class).map(response -> response.length > 0 ? response[0] : null)
-                .onErrorResume(WebClientResponseException.class, e -> {
+                .bodyToMono(StockQuote[].class).flatMap(response -> {
+                    if (response != null && response.length > 0) {
+                        return Mono.just(response[0]); // Return the first element of the array
+                    } else {
+                        return Mono.empty(); // Return an empty Mono for empty or null response
+                    }
+                }).onErrorResume(WebClientResponseException.class, e -> {
                     // Log the error or take additional actions
                     System.out.println("Error fetching stock data: " + e.getMessage());
                     return Mono.empty(); // Return an empty Mono to indicate an error
