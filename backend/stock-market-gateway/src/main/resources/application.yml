@@ -9,10 +9,17 @@ spring:
           filters:
             - AuthenticationFilter
 
-        - id: stock-search-api
+        - id: stock-data-service
           uri: lb://stock-data-service
           predicates:
             - Path=/stock-api/**,
+          filters:
+            - AuthenticationFilter
+
+        - id: stock-wishlist-service
+          uri: lb://stock-wishlist-service
+          predicates:
+            - Path=/stock-wishlist/**,
           filters:
             - AuthenticationFilter
 
