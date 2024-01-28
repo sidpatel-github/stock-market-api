@@ -13,8 +13,8 @@ import java.util.List;
 @Repository
 public interface StockPriceRepository extends ReactiveMongoRepository<StockPrice, String> {
     @Aggregation(pipeline = {
-            "{ $sort: { symbol: 1, timestamp: -1 } }",
             "{ $group: { _id: '$symbol', latestDocument: { $first: '$$ROOT' } } }",
+            "{ $sort: { symbol: 1, timestamp: -1 } }",
             "{ $replaceRoot: { newRoot: { $mergeObjects: ['$latestDocument', { _id: '$_id' }] } } }",
             "{ $project: { symbol: 0 } }",
             "{ $out: 'stock_price_aggregation'}"
