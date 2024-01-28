@@ -18,7 +18,7 @@ public class AuthService {
 
     public String saveUser(UserCredential credential) {
         credential.setPassword(passwordEncoder.encode(credential.getPassword()));
-        repository.save(credential);
+        repository.insert(credential);
         return "user added to the system";
     }
 
