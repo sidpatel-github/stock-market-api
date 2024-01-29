@@ -1,13 +1,16 @@
 package com.example.stockmarketgateway.filter;
+
 import com.example.stockmarketgateway.util.JwtUtil;
 import org.apache.http.HttpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ServerWebExchange;
 
 @Component
-public class AuthenticationFilter extends AbstractGatewayFilterFactory<AuthenticationFilter.Config>{
+public class AuthenticationFilter extends AbstractGatewayFilterFactory<AuthenticationFilter.Config> {
     @Autowired
     private RouteValidator validator;
 
@@ -33,16 +36,27 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                 String authHeader = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
                 if (authHeader != null && authHeader.startsWith("Bearer ")) {
                     authHeader = authHeader.substring(7);
-                }
-                try {
+                    try {
 //                    //REST call to AUTH service
 //                    template.getForObject("http://IDENTITY-SERVICE//validate?token" + authHeader, String.class);
-                    jwtUtil.validateToken(authHeader);
+                        boolean isValidated = jwtUtil.validateToken(authHeader);
 
-                } catch (Exception e) {
-                    System.out.println("invalid access...!");
-                    throw new RuntimeException("un authorized access to application");
+                        if(isValidated) {
+                            String username = jwtUtil.getUserNameFromJwtToken(authHeader);
+                            ServerHttpRequest modifiedRequest = exchange.getRequest().mutate()
+                                    .header("X-USERNAME", username) // Add username to the header
+                                    .build();
+                            ServerWebExchange modifiedExchange = exchange.mutate().request(modifiedRequest).build();
+                            return chain.filter(modifiedExchange);
+                        } else {
+                            System.out.println("invalid");
+                        }
+                    } catch (Exception e) {
+                        System.out.println("invalid access...!");
+                        throw new RuntimeException("Unauthorized access to application");
+                    }
                 }
+
             }
             return chain.filter(exchange);
         });
