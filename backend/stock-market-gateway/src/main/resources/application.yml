@@ -19,7 +19,7 @@ spring:
         - id: stock-wishlist-service
           uri: lb://stock-wishlist-service
           predicates:
-            - Path=/stock-wishlist/**,
+            - Path=/wishlist/**,
           filters:
             - AuthenticationFilter
 
