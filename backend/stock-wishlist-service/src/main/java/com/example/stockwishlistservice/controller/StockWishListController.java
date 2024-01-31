@@ -12,26 +12,26 @@ import java.util.Optional;
 @RestController()
 @RequestMapping("/wishlist")
 public class StockWishListController {
-
+    private static final String USERNAME_HEADER = "X-USERNAME";
     @Autowired
     WishListService wishListService;
 
     @GetMapping("/stocks")
     public Optional<StockWishList> hello(HttpServletRequest request) {
-        String username = request.getHeader("X-USERNAME");
+        String username = request.getHeader(USERNAME_HEADER);
         return wishListService.getWishListStocks(username);
     }
 
     @PostMapping("/stocks")
     public String addStockToWishList(HttpServletRequest request, @RequestBody WishList wishList) {
-        String username = request.getHeader("X-USERNAME");
+        String username = request.getHeader(USERNAME_HEADER);
         wishListService.addToWishlist(username, wishList);
         return "Stocks Successfully added to wishlist!";
     }
 
     @DeleteMapping("/stocks")
     public StockWishList removeStockFromWishList(HttpServletRequest request, @RequestBody WishList wishList) {
-        String username = request.getHeader("X-USERNAME");
+        String username = request.getHeader(USERNAME_HEADER);
         return wishListService.removeFromWishlist(username, wishList);
     }
 }
