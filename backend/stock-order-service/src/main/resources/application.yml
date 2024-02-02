@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: stock-order-service
+  config:
+    import: file:env.properties
+
+  data:
+    mongodb:
+      database: ${MONGO_DATABASE}
+      uri: ${MONGO_CONNECTION_URL}
+
+  cloud:
+    stream:
+      function:
+        definition : orderSupplier
+      bindings:
+        orderSupplier-out-0:
+          destination: order-event
+#        paymentEventConsumer-in-0 :
+#          destination: payment-event
+
+app:
+  jwt:
+    secret: ${JWT_SECRET}
+
+eureka:
+  client:
+    service-url:
+      defaultZone : http://localhost:8761/eureka/
+
+
+server:
+  port: 8031
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    root: DEBUG
