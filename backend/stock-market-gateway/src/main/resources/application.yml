@@ -23,11 +23,17 @@ spring:
           filters:
             - AuthenticationFilter
 
+        - id: stock-order-service
+          uri: lb://stock-order-service
+          predicates:
+            - Path=/order/**,
+          filters:
+            - AuthenticationFilter
+
         - id: stock-auth-service
           uri: lb://stock-auth-service
           predicates:
             - Path=/auth/**
-
 
 
   application:
