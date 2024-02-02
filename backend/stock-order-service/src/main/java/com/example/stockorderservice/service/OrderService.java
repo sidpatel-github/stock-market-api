@@ -25,12 +25,13 @@ public class OrderService {
         return order;
     }
 
-    public List<PurchaseOrder> getAllOrders() {
-        return orderRepository.findAll();
+    public List<PurchaseOrder> getAllOrders(String userName) {
+        return orderRepository.findByUserId(userName);
     }
 
     private PurchaseOrder convertDtoToEntity(OrderRequestDto dto) {
         PurchaseOrder purchaseOrder = new PurchaseOrder();
+        purchaseOrder.setUserId(dto.getUserId());
         purchaseOrder.setOrderStatus(OrderStatus.ORDER_CREATED);
         purchaseOrder.setAmount(dto.getAmount());
         purchaseOrder.setQuantity(dto.getQuantity());
