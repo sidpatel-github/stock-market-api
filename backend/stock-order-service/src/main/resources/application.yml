@@ -10,14 +10,13 @@ spring:
       uri: ${MONGO_CONNECTION_URL}
 
   cloud:
+    function.definition : orderSupplier;paymentEventConsumer
     stream:
-      function:
-        definition : orderSupplier
       bindings:
         orderSupplier-out-0:
           destination: order-event
-#        paymentEventConsumer-in-0 :
-#          destination: payment-event
+        paymentEventConsumer-in-0:
+          destination: payment-event
 
 app:
   jwt:
@@ -31,7 +30,10 @@ eureka:
 
 server:
   port: 8031
-logging:
-  level:
-    org.springframework.cloud.gateway: DEBUG
-    root: DEBUG
+#logging:
+#  level:
+#    org.springframework.cloud: DEBUG
+#    org.springframework.kafka: DEBUG
+#    org.springframework.integration: DEBUG
+#    root: DEBUG
+#    org.springframework.cloud.gateway: DEBUG
