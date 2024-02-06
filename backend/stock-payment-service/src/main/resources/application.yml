@@ -17,7 +17,7 @@ spring:
         paymentProcessor-in-0:
           destination: order-event
         paymentProcessor-out-0:
-            destination: payment-event
+          destination: payment-event
 
 app:
   jwt:
