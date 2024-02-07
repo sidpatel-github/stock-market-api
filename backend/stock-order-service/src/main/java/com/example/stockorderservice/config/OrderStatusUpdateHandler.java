@@ -8,7 +8,6 @@ import com.example.stockorderservice.status.OrderStatus;
 import com.example.stockorderservice.status.PaymentStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.function.Consumer;
 
