@@ -84,6 +84,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>stock-data-service</finalName>
 	</build>
 
 </project>
