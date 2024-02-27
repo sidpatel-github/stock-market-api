@@ -32,6 +32,7 @@ jobs:
         cd backend/stock-data-service &&
         ls -la &&
         pwd &&
+        echo "MONGO_CONNECTION_URL: $MONGO_CONNECTION_URL"
         mvn clean install
       
     - name: Login to Docker Hub
