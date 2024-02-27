@@ -6,6 +6,8 @@ on:
       - 'master'
     paths:
       - 'backend/stock-data-service/**'
+      - '.github/workflows/stock-data-service-docker-workflow.yml'
+      
   pull_request:
     branches:
       - 'master'
