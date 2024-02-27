@@ -20,10 +20,14 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-        
-    - name: Change directory to stock-data-service
-      run: cd backend/stock-data-service && ls -la && pwd
-      
+    
+    - name: Change directory to stock-data-service and build with Maven
+      run: |
+        cd backend/stock-data-service &&
+        ls -la &&
+        pwd &&
+        mvn clean install
+              
     - name: Build with Maven
       run: mvn -e clean install
       
