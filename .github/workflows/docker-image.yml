@@ -22,7 +22,7 @@ jobs:
         cache: maven
         
     - name: Change directory to stock-data-service
-      run: cd backend/stock-data-service    
+      run: cd backend/stock-data-service && ls -la && pwd
       
     - name: Build with Maven
       run: mvn -e clean install
