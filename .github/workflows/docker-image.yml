@@ -2,11 +2,13 @@ name: Docker Image CI for stock-data-service
 
 on:
   push:
-    branches: [ "master" ]
+    branches:
+      - 'master'
     paths:
       - 'backend/stock-data-service/**'
   pull_request:
-    branches: [ "master" ]
+    branches:
+      - 'master'
     paths:
       - 'backend/stock-data-service/**'
 
