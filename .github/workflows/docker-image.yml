@@ -45,4 +45,4 @@ jobs:
       with:
         context: backend/stock-data-service/
         push: true
-        tags: sidprivatedocker/stock-market-api:${{ github.run_number }}
+        tags: sidprivatedocker/stock-data-service:${{ github.run_number }}
